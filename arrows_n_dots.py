@@ -1,6 +1,11 @@
+from curses import raw
+from turtle import position
 import numpy as np
 import exceptions as exc
+import time
 import json
+import os
+import sys
 
 
 class Interpreter:
@@ -9,13 +14,23 @@ class Interpreter:
         self.pointer = 0
         self.line = 1
         self.col = 1
-        with open('./config.json') as fp:
-            self.commands = json.load(fp)["operations"]
+        self.position = 0
+        with open('./config.json', 'r') as fp:
+            f = json.load(fp)
+            self.commands = f["operations"]
+            self.speed = f["speed"]
 
     def evaluate(self, script: str):
+        raw_script = ""
         res = ""
         for c in script:
+            if c in self.commands:
+                raw_script += c
+        for c in script:
             self.col += 1
+            self.position += 1
+            command_out = ""
+
             if c not in self.commands:
                 if c == "\n":
                     self.line += 1
@@ -37,10 +52,23 @@ class Interpreter:
             elif c == "v":
                 self.tape[self.pointer] -= 1
             elif c == ".":
-                res += chr(self.tape[self.pointer])
+                command_out = chr(self.tape[self.pointer])
             elif c == ":":
-                res += str(self.tape[self.pointer])
-        print(res)
+                command_out = str(self.tape[self.pointer])
+            elif c == "-":
+                time.sleep(self.tape[self.pointer])
+                continue
+            
+            print(f'POINTER: {self.tape[self.pointer]}')
+            print(raw_script[self.position:]+" ")
+            #print("\n ")
+            print(res)
+
+            time.sleep(self.speed)
+            print("\033[K\033[A\033[K"*3, end="\r")
+            res += command_out
+        print("\033[4B", "\033[K\033[A\033[K"*4, f'\r{res}')
+                
 
     def out_tape(self):
         return self.tape
