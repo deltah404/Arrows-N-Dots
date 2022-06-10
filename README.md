@@ -9,9 +9,9 @@
 - The number at the pointer can either be outputted as the character with the corresponding ASCII value or the raw number.
 
 ## AND has six functions:
-`>` : Moves the pointer to the right.
-`<` : Moves the pointer to the left.
-`^` : Increment the value of the number at the pointer.
-`v` : Decrement the value of the number at the pointer.
-`.` : Print the value of the number at the pointer as an ASCII character.
-`:` : Print the value of the number at the pointer as an integer.
+- `>` : Moves the pointer to the right.
+- `<` : Moves the pointer to the left.
+- `^` : Increment the value of the number at the pointer.
+- `v` : Decrement the value of the number at the pointer.
+- `.` : Print the value of the number at the pointer as an ASCII character.
+- `:` : Print the value of the number at the pointer as an integer.
