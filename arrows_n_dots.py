@@ -71,7 +71,7 @@ class Interpreter:
             print(f'POINTER: {self.pointer} {"(Paused)"*(time_to_add != 0)}')
             print(formatted_tape[:width])
             print((" "*((2+longest_number_length)*self.pointer) + "^")[:width])
-            print((raw_script[self.position-1:]+" ")[:width])
+            print((raw_script[self.position:]+" ")[:width])
             print(res[:width])
 
             time.sleep(self.speed+time_to_add)
